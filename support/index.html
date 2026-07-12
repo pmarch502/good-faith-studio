@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &middot; Good Faith Studio</title>
+<meta name="description" content="Get help with Good Faith Studio apps.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../">&larr; Good Faith Studio</a>
+
+  <h1>Support</h1>
+  <p class="lead">Questions, bugs, or ideas? We&rsquo;d genuinely like to hear from you.</p>
+
+  <div class="card center">
+    <p>Email us and we&rsquo;ll get back to you, usually within a couple of days.</p>
+    <p style="margin: 22px 0 26px;">
+      <a id="email-btn" class="btn" href="#">Email Support</a>
+    </p>
+    <p class="muted small">One real person reads every message. There&rsquo;s no ticket bot.</p>
+    <noscript>
+      <p class="muted small">Email us at <strong>goodfaithstudio777</strong> at <strong>gmail</strong> dot <strong>com</strong>.</p>
+    </noscript>
+  </div>
+
+  <footer>&copy; 2026 Good Faith Studio</footer>
+</main>
+
+<script>
+  // Assemble the address at runtime so it never appears as plain text in the
+  // page source (light spam-scraper obfuscation).
+  (function () {
+    var user = "goodfaithstudio777";
+    var domain = "gmail.com";
+    var el = document.getElementById("email-btn");
+    if (el) {
+      el.href = "mailto:" + user + "@" + domain +
+                "?subject=" + encodeURIComponent("Good Faith Studio support");
+    }
+  })();
+</script>
+</body>
+</html>
