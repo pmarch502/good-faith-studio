@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worship Assist &mdash; Host a Library &middot; Good Faith Studio</title>
+<meta name="description" content="Guide to setting up your own cloud storage library for Worship Assist — point the app at Amazon S3 or any S3-compatible provider.">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../../">&larr; Good Faith Studio</a>
+
+  <h1>Host a Library</h1>
+  <p class="lead">Bring-your-own storage for Worship Assist: point the app at your own cloud.</p>
+
+  <div class="card">
+    <p>How to point Worship Assist at your <em>own</em> cloud storage. The app
+    speaks the <strong>S3 API</strong>, so it works with Amazon S3 and any
+    S3-compatible provider (Backblaze B2, Cloudflare R2, Wasabi, DigitalOcean
+    Spaces, MinIO, &hellip;). The app code is identical across all of them &mdash;
+    only the setup differs, and only in how you create the bucket and the access
+    key.</p>
+
+    <blockquote>This document is both the human setup guide and the source for
+    the app's in-app &ldquo;Host a library&rdquo; instructions. Keep each
+    provider section self-contained.</blockquote>
+  </div>
+
+  <div class="card">
+    <h2>0. What the app needs from you</h2>
+    <p>At the end of setup you hand the app <strong>six values</strong> (these
+    fill an <code>S3Config</code>):</p>
+
+    <table>
+      <thead>
+        <tr><th>Value</th><th>What it is</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Endpoint</strong></td><td>The storage host, no <code>https://</code></td><td><code>s3.us-east-2.amazonaws.com</code></td></tr>
+        <tr><td><strong>Region</strong></td><td>The region code</td><td><code>us-east-2</code></td></tr>
+        <tr><td><strong>Bucket</strong></td><td>Your bucket name</td><td><code>grace-worship-library</code></td></tr>
+        <tr><td><strong>Prefix</strong></td><td>Optional folder the library lives under (blank = bucket root)</td><td><code></code> or <code>library</code></td></tr>
+        <tr><td><strong>Access key ID</strong></td><td>The public half of the key</td><td><code>AKIA&hellip;</code> (AWS) / <code>0057&hellip;</code> (B2)</td></tr>
+        <tr><td><strong>Secret access key</strong></td><td>The private half &mdash; shown once, store it safely</td><td><code>wJalr&hellip;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>1. How the library must be laid out</h2>
+    <p>Upload your songs and shared files in this exact folder structure (under
+    the optional prefix). This mirrors how the app already organizes content, so
+    nothing special is needed &mdash; just put files in the right folders:</p>
+
+<pre><code>audio/&lt;Song Name&gt;/&lt;Stem&gt;.mp3               e.g. audio/Reckless Love/Bass.mp3
+audio/&lt;Song Name&gt;/metadata.json            (optional — bpm/key/section markers)
+audio/&lt;Song Name&gt;/Arrangements/&lt;Name&gt;.json (created by the app; you can leave empty)
+audio/&lt;Song Name&gt;/Mutes/&lt;Name&gt;.json        (created by the app)
+setlists/&lt;Name&gt;.json                       (created by the app)
+mashups/&lt;Name&gt;.json                        (created by the app)</code></pre>
+
+    <ul>
+      <li><strong>You only have to upload <code>audio/</code>.</strong> The app
+      creates the other folders as people build arrangements, mute sets, set
+      lists, and mashups.</li>
+      <li><strong>Song name = folder name.</strong> Whatever you name the folder
+      is the song title.</li>
+      <li><strong>No <code>metadata.json</code>?</strong> The song still plays;
+      it just opens without a beat grid until someone sets its tempo/key in the
+      app. (Songs exported from Worship Assist already include it.)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2. Concepts that apply to every provider</h2>
+    <p><strong>Private bucket + a scoped key.</strong> Keep the bucket private.
+    The app authenticates with the access key you create &mdash; it does not need
+    public access. (A key is required even just to <em>read</em>, because the app
+    lists the bucket to discover songs, and you don't want your catalog publicly
+    listable.)</p>
+
+    <p><strong>Two postures &mdash; you choose which key(s) to make:</strong></p>
+    <ul>
+      <li><strong>Contributor key</strong> &mdash; read + add/edit, but
+      <strong>cannot delete</strong>. Give this one to your team. A leaked
+      contributor link can't wipe the library.</li>
+      <li><strong>Owner key</strong> &mdash; the above <strong>plus delete</strong>.
+      Keep this one to yourself; use it if you want to delete/reorganize from
+      inside the app.</li>
+    </ul>
+
+    <p>You can start with just a contributor key and do rare deletes from the
+    provider's console, or make both. Deletion in the app means deleting
+    <em>arrangements / mute sets / set lists / mashups</em> &mdash; never the
+    audio.</p>
+
+    <p><strong>Turn on versioning (the safety net).</strong> With versioning on,
+    every overwrite and delete is recoverable, so even the owner key can't cause
+    permanent loss. (Amazon S3: opt-in, one switch. Backblaze B2: on by
+    default.)</p>
+  </div>
+
+  <div class="card">
+    <h2>3. Amazon S3</h2>
+
+    <h2>3.1 Create the bucket</h2>
+    <ol>
+      <li>S3 console &rarr; <strong>Create bucket</strong>.</li>
+      <li><strong>Bucket name</strong>: globally unique (e.g. <code>grace-worship-library</code>).</li>
+      <li><strong>Region</strong>: pick one close to your team and <strong>note its code</strong> (e.g. <code>us-east-2</code>).</li>
+      <li><strong>Block Public Access</strong>: leave <strong>ON</strong> (fully blocked). The app uses a key.</li>
+      <li>Create.</li>
+    </ol>
+
+    <h2>3.2 Turn on versioning</h2>
+    <p>Bucket &rarr; <strong>Properties</strong> &rarr; <strong>Bucket Versioning</strong>
+    &rarr; <strong>Edit</strong> &rarr; <strong>Enable</strong> &rarr; Save.</p>
+
+    <h2>3.3 Upload your library</h2>
+    <p>Put your songs under <code>audio/</code> in the layout from &sect;1.
+    Easiest with the AWS CLI:</p>
+
+<pre><code>aws s3 sync ./my-library s3://grace-worship-library/
+# ...or, if you chose a prefix "library":
+aws s3 sync ./my-library s3://grace-worship-library/library/</code></pre>
+
+    <p>(<code>./my-library</code> should contain the <code>audio/</code> folder.)
+    The console's drag-and-drop upload works too.</p>
+
+    <h2>3.4 Create the access keys (IAM)</h2>
+    <p>Make <strong>two</strong> keys &mdash; one for you (<strong>host</strong>),
+    one to share with the team (<strong>user</strong>). They map to the &ldquo;Link
+    type&rdquo; you pick when minting a link in the app:</p>
+
+    <ul>
+      <li><strong>Host</strong> &mdash; full access: read, write, delete, and
+      <strong>upload songs</strong>.</li>
+      <li><strong>User</strong> &mdash; read everything + add/edit/delete the
+      <strong>sidecars</strong> (arrangements, mute sets, set lists, mashups) but
+      <strong>cannot upload or change songs</strong>.</li>
+    </ul>
+
+    <p>The user key is what actually stops a team member from touching the audio
+    &mdash; the app's &ldquo;User&rdquo; link type only <em>hides</em> the upload
+    UI; the key is the real guard. So mint the User link from the user key, not
+    the host key.</p>
+
+    <p>For each: IAM console &rarr; <strong>Users</strong> &rarr; <strong>Create
+    user</strong> (e.g. <code>worship-host</code> / <code>worship-user</code>, no
+    console sign-in) &rarr; <strong>Permissions</strong> &rarr; <strong>Attach
+    policies directly</strong> &rarr; <strong>Create inline policy</strong> &rarr;
+    JSON, paste the matching policy below (replace <code>grace-worship-library</code>
+    with your bucket), finish the user, then open it &rarr; <strong>Security
+    credentials</strong> &rarr; <strong>Create access key</strong> &rarr;
+    <strong>Application running outside AWS</strong> &rarr; <strong>copy the Access
+    key ID and Secret now</strong> (shown once).</p>
+
+    <p><strong>Host policy</strong> (full access):</p>
+
+<pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListTheLibrary",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::grace-worship-library"
+    },
+    {
+      "Sid": "FullObjectAccess",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::grace-worship-library/*"
+    }
+  ]
+}</code></pre>
+
+    <p><strong>User policy</strong> (read all, write sidecars only &mdash; no song
+    upload):</p>
+
+<pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListTheLibrary",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::grace-worship-library"
+    },
+    {
+      "Sid": "ReadEverything",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::grace-worship-library/*"
+    },
+    {
+      "Sid": "WriteSidecarsOnly",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:DeleteObject"],
+      "Resource": [
+        "arn:aws:s3:::grace-worship-library/audio/*/Arrangements/*",
+        "arn:aws:s3:::grace-worship-library/audio/*/Mutes/*",
+        "arn:aws:s3:::grace-worship-library/setlists/*",
+        "arn:aws:s3:::grace-worship-library/mashups/*"
+      ]
+    }
+  ]
+}</code></pre>
+
+    <p>The user can write only the sidecar folders; songs live directly at
+    <code>audio/&lt;Song&gt;/&lt;stem&gt;.mp3</code> + <code>metadata.json</code>,
+    which <code>WriteSidecarsOnly</code> doesn't cover, so uploads are refused
+    (surfaced as a 403, no crash). If you use a <strong>prefix</strong>, prepend
+    it to each <code>Resource</code> path (e.g.
+    <code>&hellip;/library/audio/*/Arrangements/*</code>). Arrangements and mute
+    sets are nested <em>inside</em> <code>audio/&lt;Song&gt;/</code> &mdash; scope
+    by the <code>Arrangements/</code>/<code>Mutes/</code> segment as above,
+    <strong>not</strong> a blanket <code>audio/*</code> (that would let users
+    upload songs).</p>
+
+    <h2>3.5 Values to give the app</h2>
+    <table>
+      <thead>
+        <tr><th>Value</th><th>Where it comes from</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Endpoint</td><td><code>s3.&lt;region&gt;.amazonaws.com</code> (e.g. <code>s3.us-east-2.amazonaws.com</code>)</td></tr>
+        <tr><td>Region</td><td>your bucket's region (e.g. <code>us-east-2</code>)</td></tr>
+        <tr><td>Bucket</td><td>your bucket name</td></tr>
+        <tr><td>Prefix</td><td>blank, or the folder you synced into</td></tr>
+        <tr><td>Access key ID / Secret</td><td>from &sect;3.4 (the host or user key, matching the link type)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. Backblaze B2</h2>
+    <p>B2 exposes an S3-compatible API, so the same app works &mdash; the
+    differences are the console and that B2 uses <strong>application keys with
+    capabilities</strong> instead of IAM policies. B2 keeps file versions by
+    default, so there's no versioning switch.</p>
+
+    <h2>4.1 Create the bucket</h2>
+    <ol>
+      <li>B2 console &rarr; <strong>Buckets</strong> &rarr; <strong>Create a Bucket</strong>.</li>
+      <li><strong>Bucket unique name</strong> (e.g. <code>grace-worship-library</code>).</li>
+      <li><strong>Files in Bucket are</strong>: <strong>Private</strong>.</li>
+      <li>Create.</li>
+    </ol>
+
+    <h2>4.2 Note the endpoint + region</h2>
+    <p>On the bucket's page, B2 shows an <strong>Endpoint</strong> like
+    <code>s3.us-west-004.backblazeb2.com</code>.</p>
+    <ul>
+      <li><strong>Endpoint</strong> = that host.</li>
+      <li><strong>Region</strong> = the middle segment of it, e.g. <code>us-west-004</code>.</li>
+    </ul>
+
+    <h2>4.3 Upload your library</h2>
+    <p>The web uploader is fine for a few files; for a real upload use the AWS CLI
+    pointed at B2's endpoint (after configuring it with your key from &sect;4.4),
+    or a tool like Cyberduck / rclone:</p>
+
+<pre><code>aws s3 sync ./my-library s3://grace-worship-library/ \
+  --endpoint-url https://s3.us-west-004.backblazeb2.com</code></pre>
+
+    <h2>4.4 Create the scoped application key</h2>
+    <p>The <strong>key ID</strong> becomes the app's <em>Access key ID</em>, and
+    the <strong>application key</strong> becomes the <em>Secret access key</em>
+    (shown once).</p>
+
+    <ul>
+      <li><strong>Owner key (can delete):</strong> the B2 console works.
+      <strong>App Keys</strong> &rarr; <strong>Add a New Application Key</strong>
+      &rarr; name it &rarr; restrict <strong>Allow access to Bucket</strong> to
+      your bucket &rarr; <strong>Type of Access: Read and Write</strong> &rarr;
+      create.</li>
+      <li><strong>Contributor key (no delete):</strong> the console's &ldquo;Read
+      and Write&rdquo; <em>includes</em> delete, so use the B2 CLI to omit the
+      <code>deleteFiles</code> capability:
+<pre><code>b2 create-key --bucket grace-worship-library \
+  worship-contributor listBuckets,listFiles,readFiles,writeFiles</code></pre>
+      (The owner variant just adds <code>,deleteFiles</code>.) The command prints
+      two values: the <strong>keyID</strong> and the
+      <strong>applicationKey</strong>.</li>
+    </ul>
+
+    <h2>4.5 Values to give the app</h2>
+    <table>
+      <thead>
+        <tr><th>Value</th><th>Where it comes from</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Endpoint</td><td>from &sect;4.2 (e.g. <code>s3.us-west-004.backblazeb2.com</code>)</td></tr>
+        <tr><td>Region</td><td>the endpoint's middle segment (e.g. <code>us-west-004</code>)</td></tr>
+        <tr><td>Bucket</td><td>your bucket name</td></tr>
+        <tr><td>Prefix</td><td>blank, or your chosen folder</td></tr>
+        <tr><td>Access key ID</td><td>the B2 <strong>keyID</strong></td></tr>
+        <tr><td>Secret access key</td><td>the B2 <strong>applicationKey</strong></td></tr>
+      </tbody>
+    </table>
+
+    <blockquote>Free-tier note: B2 gives 10 GB storage free &mdash; plenty for
+    testing a handful of songs, not the whole library.</blockquote>
+  </div>
+
+  <div class="card">
+    <h2>5. Other S3-compatible providers</h2>
+    <p>The same app works with any S3-compatible object store. To add one, you
+    need its <strong>endpoint host</strong> and <strong>region</strong>, then
+    create a bucket and a key scoped to it (read + list + write, optionally
+    delete). The pattern is always the same; only the console and the endpoint
+    change.</p>
+
+    <table>
+      <thead>
+        <tr><th>Provider</th><th>Endpoint pattern</th><th>Region</th><th>Notes</th><th>Verified</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Amazon S3</strong></td><td><code>s3.&lt;region&gt;.amazonaws.com</code></td><td>e.g. <code>us-east-2</code></td><td>IAM policy</td><td>&#9203;</td></tr>
+        <tr><td><strong>Backblaze B2</strong></td><td><code>s3.&lt;region&gt;.backblazeb2.com</code></td><td>e.g. <code>us-west-004</code></td><td>App key capabilities; versioned by default</td><td>&#9203;</td></tr>
+        <tr><td><strong>Cloudflare R2</strong></td><td><code>&lt;account-id&gt;.r2.cloudflarestorage.com</code></td><td><code>auto</code></td><td>R2 API tokens; no egress fees</td><td>&mdash;</td></tr>
+        <tr><td><strong>Wasabi</strong></td><td><code>s3.&lt;region&gt;.wasabisys.com</code></td><td>e.g. <code>us-east-1</code></td><td>IAM-like policies</td><td>&mdash;</td></tr>
+        <tr><td><strong>DigitalOcean Spaces</strong></td><td><code>&lt;region&gt;.digitaloceanspaces.com</code></td><td>e.g. <code>nyc3</code></td><td>Spaces keys</td><td>&mdash;</td></tr>
+        <tr><td><strong>MinIO (self-hosted)</strong></td><td>your server host</td><td>often <code>us-east-1</code></td><td>Full control; great for on-prem</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+
+    <p class="muted"><em>(Verified = we've confirmed the app against it. Amazon S3
+    and Backblaze B2 are the first two targets.)</em></p>
+  </div>
+
+  <div class="card">
+    <h2>6. Setup checklist</h2>
+    <ul>
+      <li>Bucket created, <strong>private</strong></li>
+      <li>Versioning on (S3) / confirmed default (B2)</li>
+      <li>Library uploaded under <code>audio/</code> in the &sect;1 layout</li>
+      <li>Scoped key created (contributor and/or owner)</li>
+      <li>Recorded the six values from &sect;0</li>
+      <li>(After the app's connect flow exists) pasted them in and the song list appears</li>
+    </ul>
+  </div>
+
+  <footer>&copy; 2026 Good Faith Studio</footer>
+</main>
+</body>
+</html>
