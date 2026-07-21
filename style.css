@@ -84,6 +84,8 @@ a { color: var(--gold-soft); }
 
 .center { text-align: center; }
 
+.app-name { font-size: 1.15rem; font-weight: 700; color: var(--gold-soft); margin: 0 0 8px; }
+
 nav.links {
   display: flex;
   gap: 22px;
