@@ -172,10 +172,17 @@ blockquote {
   text-align: center; color: var(--muted); font-size: 0.8rem;
   letter-spacing: 0.09em; text-transform: uppercase; margin: 44px 0 -8px;
 }
-.card.secondary { padding: 22px 26px 10px; }
+.card.secondary {
+  padding: 18px 22px 8px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.card.secondary .app-name { font-size: 1rem; margin-bottom: 6px; }
+.card.secondary .small { font-size: 0.82rem; }
 .btn.quiet {
   background: transparent; color: var(--gold-soft);
   border: 1px solid rgba(242, 201, 76, 0.45);
-  font-weight: 600; padding: 10px 20px;
+  font-weight: 600; padding: 8px 18px; font-size: 0.88rem;
 }
 .btn.quiet:hover { background: rgba(242, 201, 76, 0.08); filter: none; }
