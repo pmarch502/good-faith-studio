@@ -158,3 +158,24 @@ blockquote {
   border-left: 3px solid var(--border);
   color: var(--muted);
 }
+
+/* --- Featured app: the studio's flagship, given more weight than the rest --- */
+.card.featured {
+  background: rgba(242, 201, 76, 0.055);
+  border-color: rgba(242, 201, 76, 0.26);
+  padding: 34px 26px 18px;
+}
+.app-name.big { font-size: 1.75rem; line-height: 1.25; margin-bottom: 12px; }
+
+/* --- Secondary app: present, but clearly not the headline --- */
+.eyebrow {
+  text-align: center; color: var(--muted); font-size: 0.8rem;
+  letter-spacing: 0.09em; text-transform: uppercase; margin: 44px 0 -8px;
+}
+.card.secondary { padding: 22px 26px 10px; }
+.btn.quiet {
+  background: transparent; color: var(--gold-soft);
+  border: 1px solid rgba(242, 201, 76, 0.45);
+  font-weight: 600; padding: 10px 20px;
+}
+.btn.quiet:hover { background: rgba(242, 201, 76, 0.08); filter: none; }
