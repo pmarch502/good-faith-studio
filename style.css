@@ -174,9 +174,13 @@ blockquote {
 }
 .card.secondary {
   padding: 18px 22px 8px;
-  max-width: 440px;
+  width: 66.7%;
   margin-left: auto;
   margin-right: auto;
+}
+/* two-thirds looks deliberate on a desktop, cramped on a phone */
+@media (max-width: 520px) {
+  .card.secondary { width: 100%; }
 }
 .card.secondary .app-name { font-size: 1rem; margin-bottom: 6px; }
 .card.secondary .small { font-size: 0.82rem; }
