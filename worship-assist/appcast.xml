@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Worship Assist</title>
+    <!-- The Mac app's Sparkle update feed. Written by scripts/mac_appcast.py in
+         the worship-assist repo after each Mac release is on B2. Empty until the
+         first release after 2.1.2 — an empty feed reads as "up to date". -->
+  </channel>
+</rss>
