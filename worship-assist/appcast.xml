@@ -2,8 +2,14 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
   <channel>
     <title>Worship Assist</title>
-    <!-- The Mac app's Sparkle update feed. Written by scripts/mac_appcast.py in
-         the worship-assist repo after each Mac release is on B2. Empty until the
-         first release after 2.1.2 — an empty feed reads as "up to date". -->
+    <item>
+      <title>Version 2.1.2</title>
+      <pubDate>Thu, 22 Oct 2026 18:24:03 GMT</pubDate>
+      <sparkle:version>13</sparkle:version>
+      <sparkle:shortVersionString>2.1.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<p>Songs you&#x27;ve already downloaded now pick up the host&#x27;s changes, such as a replaced track or edited markers, the next time you open them.</p><p>Worship Assist now updates itself on Mac, Windows and Android, and is on the same version everywhere you use it.</p>]]></description>
+      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="kArjFVLttw2HHLUIiFO98u9ikhuxokVCv4X4OiECSRQCUmRb0ujZ3C8IMlazL0N0wUSq1giCIR7F3/SN7qVfBw==" length="43218410" />
+    </item>
   </channel>
 </rss>
