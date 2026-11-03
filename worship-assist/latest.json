@@ -1,7 +1,16 @@
 {
   "page": "https://pmarch502.github.io/good-faith-studio/worship-assist/",
-  "macos":   {"version": "2.1.2", "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg"},
-  "windows": {"version": "2.1.2", "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist-Setup.exe"},
-  "android": {"version": "2.1.2", "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.apk"},
-  "notes": ""
+  "macos": {
+    "version": "2.1.3",
+    "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg"
+  },
+  "windows": {
+    "version": "2.1.3",
+    "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist-Setup.exe"
+  },
+  "android": {
+    "version": "2.1.3",
+    "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.apk"
+  },
+  "notes": "• ? → Activity shows who changed what in the library, and when. A deleted set list can be put back from there.\n• ? → Your name… shows the name your changes are saved under, and lets you change it.\n• When the library won't connect, the app now says why — for example, when this device's clock is wrong.\n• Tap along in the chart tool is more accurate: the playhead now shows exactly what you're hearing, so eighth-note taps land where you meant them.\n• While you tap along, the timeline keeps the playhead in view.\n• A chord copied with its length or mark now pastes back as a chord.\n• Dragging a section marker onto another one replaces it.\n• The User Guide now covers key, tempo and time changes inside a chart, and why Bluetooth headphones make tap along land late."
 }

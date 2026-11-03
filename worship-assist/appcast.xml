@@ -3,13 +3,20 @@
   <channel>
     <title>Worship Assist</title>
     <item>
-      <title>Version 2.1.2</title>
-      <pubDate>Thu, 22 Oct 2026 18:24:03 GMT</pubDate>
-      <sparkle:version>13</sparkle:version>
-      <sparkle:shortVersionString>2.1.2</sparkle:shortVersionString>
+      <title>Version 2.1.3</title>
+      <pubDate>Tue, 03 Nov 2026 14:29:52 GMT</pubDate>
+      <sparkle:version>14</sparkle:version>
+      <sparkle:shortVersionString>2.1.3</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<p>Songs you&#x27;ve already downloaded now pick up the host&#x27;s changes, such as a replaced track or edited markers, the next time you open them.</p><p>Worship Assist now updates itself on Mac, Windows and Android, and is on the same version everywhere you use it.</p>]]></description>
-      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="kArjFVLttw2HHLUIiFO98u9ikhuxokVCv4X4OiECSRQCUmRb0ujZ3C8IMlazL0N0wUSq1giCIR7F3/SN7qVfBw==" length="43218410" />
+      <description><![CDATA[<p>• ? → Activity shows who changed what in the library, and when. A deleted set list can be put back from there.
+• ? → Your name… shows the name your changes are saved under, and lets you change it.
+• When the library won&#x27;t connect, the app now says why — for example, when this device&#x27;s clock is wrong.
+• Tap along in the chart tool is more accurate: the playhead now shows exactly what you&#x27;re hearing, so eighth-note taps land where you meant them.
+• While you tap along, the timeline keeps the playhead in view.
+• A chord copied with its length or mark now pastes back as a chord.
+• Dragging a section marker onto another one replaces it.
+• The User Guide now covers key, tempo and time changes inside a chart, and why Bluetooth headphones make tap along land late.</p>]]></description>
+      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="COkWCrVWgkZKDPz6ee538zs+STY9VivwSGowj2cmPgJHf8m7HDoaFDOVQsrs9JEh5+nSaEaz8UwUXhE0ktpPDw==" length="43603736" />
     </item>
   </channel>
 </rss>
