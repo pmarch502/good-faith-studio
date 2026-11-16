@@ -3,22 +3,16 @@
   <channel>
     <title>Worship Assist</title>
     <item>
-      <title>Version 2.1.4</title>
-      <pubDate>Sat, 07 Nov 2026 17:52:40 GMT</pubDate>
-      <sparkle:version>16</sparkle:version>
-      <sparkle:shortVersionString>2.1.4</sparkle:shortVersionString>
+      <title>Version 2.1.5</title>
+      <pubDate>Mon, 16 Nov 2026 17:33:03 GMT</pubDate>
+      <sparkle:version>20</sparkle:version>
+      <sparkle:shortVersionString>2.1.5</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<p>• Solo wins over Mute: a track that is both soloed and muted now plays.
-• The pan knob is a balance control: turning it fades the other side down instead of moving the sound across.
-• Storage looks after itself: playback files for songs not opened in 30 days are cleared, and more goes when the device runs low on space. Open songs are never touched. A song that won&#x27;t fit says so plainly before it opens.
-• Hosts can add MIDI parts with Add stems, and line one up with the audio by dragging it sideways on Sections &amp; tempo.
-• The Align window: a tempo can be reset, Detect ignores click wobbles, and each part says what it found in a sentence.
-• Error messages say what happened in plain words, with the original under Details.
-• Closing a tab, loading a set list, or leaving the mashup editor asks about unsaved changes. The SET LIST menu has Save and Save As….
-• The song editor has no Save button: key, tempo and time signature save as you leave the box.
-• User Guide: a new How do I… guide with every task on Mac, Windows and touch, plus search, and new Updates and Activity chapters.
-• Mac and Windows: the window can&#x27;t be made smaller than 800 × 600. Phones: the player and Sections &amp; tempo fit a small screen, and Android&#x27;s back gesture goes back a screen in Charts.</p>]]></description>
-      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="p1e1MZXunpMGAOWKZ7x8boquXuBN3ZG44wROcJk6zyTzySNPhB0qDYrp0AJO//77qeSvpbQiDPLq4PXvERH3AQ==" length="43246988" />
+      <description><![CDATA[<p>• The chart over the waveforms now works on a mashup too: each song&#x27;s chart follows along, cut to the arrangement the mashup plays, in the key it sounds in.
+• The chart band is taller, so the rhythm notes above a line of chords are no longer clipped.
+• When a chart&#x27;s sections don&#x27;t line up with the song, the red mark now sits on the section where they stop matching and says which one — &quot;the second Intro, section 2 of 15&quot;.
+• A time signature change in the middle of a song: the marker on the chart is drawn as a small tab, the Nashville number chart writes the new signature over the bar where it changes, and the measures readout adds up.</p>]]></description>
+      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="dWEsDP1Wq64dZi8mAO+yqy2KV9LwU7QZRb0d0Y8w1Hybesb/6u1C2o0nPrl+8id579vAz1mM1FlJUZxXOsvsDw==" length="43356599" />
     </item>
   </channel>
 </rss>
