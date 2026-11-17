@@ -1,16 +1,16 @@
 {
   "page": "https://pmarch502.github.io/good-faith-studio/worship-assist/",
   "macos": {
-    "version": "2.1.5",
+    "version": "2.2.0",
     "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg"
   },
   "windows": {
-    "version": "2.1.5",
+    "version": "2.2.0",
     "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist-Setup.exe"
   },
   "android": {
-    "version": "2.1.5",
+    "version": "2.2.0",
     "url": "https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.apk"
   },
-  "notes": "• The chart over the waveforms now works on a mashup too: each song's chart follows along, cut to the arrangement the mashup plays, in the key it sounds in.\n• The chart band is taller, so the rhythm notes above a line of chords are no longer clipped.\n• When a chart's sections don't line up with the song, the red mark now sits on the section where they stop matching and says which one — \"the second Intro, section 2 of 15\".\n• A time signature change in the middle of a song: the marker on the chart is drawn as a small tab, the Nashville number chart writes the new signature over the bar where it changes, and the measures readout adds up."
+  "notes": "• New: the Planner, a third tool for making the worship team's schedule. Enter the team, their roles, the Sundays they can't serve and what a service needs, then build each month by hand or with Auto-fill.\n• Auto-fill shares the Sundays fairly: everyone gets one before anyone gets a second. It looks back at the months before, prefers the roles people usually do, and keeps people who serve together on the same Sundays. Every slot says why its person is there.\n• Standing rules such as \"1st and 3rd Sundays only\", weeks that practise on Sunday morning, and who leads a song each week.\n• In a pinch, anyone can be put in any slot. It shows in amber so it isn't lost sight of.\n• Share a month as a one-page PDF of the grid, as text, or copy one person's dates to send to them.\n• Team members with the library link see the whole month, and their own Sundays on a Me tab."
 }

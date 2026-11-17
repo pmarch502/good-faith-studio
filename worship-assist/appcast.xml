@@ -3,16 +3,18 @@
   <channel>
     <title>Worship Assist</title>
     <item>
-      <title>Version 2.1.5</title>
-      <pubDate>Mon, 16 Nov 2026 17:33:03 GMT</pubDate>
-      <sparkle:version>20</sparkle:version>
-      <sparkle:shortVersionString>2.1.5</sparkle:shortVersionString>
+      <title>Version 2.2.0</title>
+      <pubDate>Tue, 17 Nov 2026 15:27:18 GMT</pubDate>
+      <sparkle:version>21</sparkle:version>
+      <sparkle:shortVersionString>2.2.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<p>• The chart over the waveforms now works on a mashup too: each song&#x27;s chart follows along, cut to the arrangement the mashup plays, in the key it sounds in.
-• The chart band is taller, so the rhythm notes above a line of chords are no longer clipped.
-• When a chart&#x27;s sections don&#x27;t line up with the song, the red mark now sits on the section where they stop matching and says which one — &quot;the second Intro, section 2 of 15&quot;.
-• A time signature change in the middle of a song: the marker on the chart is drawn as a small tab, the Nashville number chart writes the new signature over the bar where it changes, and the measures readout adds up.</p>]]></description>
-      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="dWEsDP1Wq64dZi8mAO+yqy2KV9LwU7QZRb0d0Y8w1Hybesb/6u1C2o0nPrl+8id579vAz1mM1FlJUZxXOsvsDw==" length="43356599" />
+      <description><![CDATA[<p>• New: the Planner, a third tool for making the worship team&#x27;s schedule. Enter the team, their roles, the Sundays they can&#x27;t serve and what a service needs, then build each month by hand or with Auto-fill.
+• Auto-fill shares the Sundays fairly: everyone gets one before anyone gets a second. It looks back at the months before, prefers the roles people usually do, and keeps people who serve together on the same Sundays. Every slot says why its person is there.
+• Standing rules such as &quot;1st and 3rd Sundays only&quot;, weeks that practise on Sunday morning, and who leads a song each week.
+• In a pinch, anyone can be put in any slot. It shows in amber so it isn&#x27;t lost sight of.
+• Share a month as a one-page PDF of the grid, as text, or copy one person&#x27;s dates to send to them.
+• Team members with the library link see the whole month, and their own Sundays on a Me tab.</p>]]></description>
+      <enclosure url="https://f005.backblazeb2.com/file/WorshipAssistDownload/Worship-Assist.dmg" type="application/octet-stream" sparkle:edSignature="AzXEH3DQ8OrGYCOTNcIZTDL8WZIAupo9fMxIZN+bgCZNEQoSkiwd3rLok5c3Nx/HcHsHEHCxA0jZUHKJiUWPDg==" length="44104448" />
     </item>
   </channel>
 </rss>
